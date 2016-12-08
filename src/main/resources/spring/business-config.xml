@@ -2,13 +2,18 @@
 <!--
     Repository and Service layers
 -->
-<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
-       xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns="http://www.springframework.org/schema/beans"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <!-- ========================= RESOURCE DEFINITIONS ========================= -->
 
@@ -24,7 +29,10 @@
 
     <!-- enables scanning for @Transactional annotations -->
     <tx:annotation-driven/>
+   
+    <aop:aspectj-autoproxy />
 
+    <bean id="logAspect" class="org.springframework.samples.petclinic.aop.LogAspect" />
 
     <!-- ==================		 3 Profiles to choose from 			===================
                                     - jdbc (uses Spring" JdbcTemplate)
@@ -93,4 +101,5 @@
     <beans profile="spring-data-jpa">
         <jpa:repositories base-package="org.springframework.samples.petclinic.repository.springdatajpa"/>
     </beans>
+            
 </beans>

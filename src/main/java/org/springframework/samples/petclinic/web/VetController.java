@@ -23,6 +23,7 @@ import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.View;
 
 /**
  * @author Juergen Hoeller
@@ -60,6 +61,12 @@ public class VetController {
         Vets vets = new Vets();
         vets.getVetList().addAll(this.clinicService.findVets());
         return vets;
+    }
+    
+    @RequestMapping("/vets.xlsx")
+    public View vetsHandlerXlsx(Map<String, Object> model) {
+    	model.put("vetsCollection", this.clinicService.findVets());
+    	return new VetsXlsxView();
     }
 
 
